@@ -1,65 +1,70 @@
-# import streamlit as st
-
-# st.title("Hello, Streamlit!")
-# st.write("If you can read this in your browser, Streamlit is working.")import streamlit as st
-
-# st.title("Streamlit Widgets Demo")
-
-# name = st.text_input("What is your name?")
-
-# if st.button("Say hello"):
-#     if name.strip():
-#         st.write(f"Hello, {name}! 👋")
-#     else:
-#         st.warning("Please type your name first.")
-
-import streamlit as st
-
-st.title("Session State Demo")
-
-# Create the counter once; keep it across reruns
-# if "count" not in st.session_state:
-#     st.session_state.count = 0
-
-# st.write(f"Button clicked **{st.session_state.count}** time(s).")
-
-# if st.button("Click me"):
-#     st.session_state.count += 1
-#     st.rerun()
-
-# import streamlit as st
-
-# st.set_page_config(page_title="Streamlit Warmup", layout="wide")
-# st.title("Main area — chat goes here")
-
-# with st.sidebar:
-#     st.header("Sidebar")
-#     st.write("Buttons and dropdowns go here.")
-#     if st.button("Example button"):
-#         st.sidebar.success("You clicked the sidebar button!")
-
-import streamlit as st
-
-st.set_page_config(page_title="Echo Chat", layout="wide")
-st.title("Echo Chat (no AI — just Streamlit UI practice)")
-
-with st.sidebar:
-    st.header("Sidebar")
-    if st.button("Clear chat"):
-        st.session_state.messages = []
-        st.rerun()
-
-# Remember messages between reruns
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-
-# Show all past messages
-for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
-
-# Read new input from the user
-if prompt := st.chat_input("Type a message..."):
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    st.session_state.messages.append({"role": "assistant", "content": f"You said: {prompt}"})
-    st.rerun()
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "fff2b5b7",
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "2026-10-28 13:25:55.685 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+      "2026-10-28 13:25:55.686 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+      "2026-10-28 13:25:55.687 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+      "2026-10-28 13:25:55.688 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+      "2026-10-28 13:25:55.689 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n",
+      "2026-10-28 13:25:55.689 Thread 'MainThread': missing ScriptRunContext! This warning can be ignored when running in bare mode.\n"
+     ]
+    }
+   ],
+   "source": [
+    "import streamlit as st\n",
+    "\n",
+    "st.title(\"Hello, Streamlit!\")\n",
+    "st.write(\"If you can read this in your browser, Streamlit is working.\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "6b1b91af",
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "SyntaxError",
+     "evalue": "invalid syntax (2147799488.py, line 1)",
+     "output_type": "error",
+     "traceback": [
+      "  \u001b[36mCell\u001b[39m\u001b[36m \u001b[39m\u001b[32mIn[9]\u001b[39m\u001b[32m, line 1\u001b[39m\n\u001b[31m    \u001b[39m\u001b[31mstreamlit run hello_streamlit.py\u001b[39m\n              ^\n\u001b[31mSyntaxError\u001b[39m\u001b[31m:\u001b[39m invalid syntax\n"
+     ]
+    }
+   ],
+   "source": [
+    "streamlit run hello_streamlit.py"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": ".venv (3.13.13)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.13.13"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}

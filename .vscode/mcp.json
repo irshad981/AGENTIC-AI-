@@ -1,0 +1,12 @@
+{
+	"servers": {
+		"my-mcp-server-5b24fe8e": {
+			"type": "stdio",
+			"command": "C:\\Users\\Training\\Desktop\\AIAGENTTRANING\\.venv\\Scripts\\python.exe",
+			"args": [
+				"C:\\Users\\Training\\Desktop\\AIAGENTTRANING\\03-DatabaseServer.py"
+			]
+		}
+	},
+	"inputs": []
+}
