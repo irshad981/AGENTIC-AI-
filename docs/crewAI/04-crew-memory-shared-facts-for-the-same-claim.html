@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Let the Crew Remember</title>
+  <style>
+    :root {
+      --bg-gradient-start: #eef2ff;
+      --bg-gradient-mid: #f9fafb;
+      --bg-gradient-end: #fdf2ff;
+      --text-primary: #111827;
+      --text-heading: #0f172a;
+      --accent-blue: #2563eb;
+      --accent-green: #16a34a;
+      --accent-amber: #d97706;
+      --accent-red: #dc2626;
+      --card-bg: #ffffff;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(circle at top left, var(--bg-gradient-start) 0, var(--bg-gradient-mid) 40%, var(--bg-gradient-end) 100%);
+      color: var(--text-primary);
+    }
+
+    main {
+      max-width: 980px;
+      margin: 2rem auto 3rem;
+      padding: 2.5rem 2rem 3rem;
+      background-color: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08), 0 0 0 1px var(--border-subtle);
+    }
+
+    h1 {
+      font-size: 2.05rem;
+      margin: 0 0 1rem;
+      letter-spacing: -0.03em;
+      text-align: center;
+      color: var(--text-heading);
+      padding: 1rem 1.5rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #dbeafe, #e0f2fe);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12), 0 0 0 1px var(--border-subtle);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 2.25rem;
+      margin-bottom: 0.5rem;
+      border-bottom: 2px solid rgba(37, 99, 235, 0.18);
+      padding-bottom: 0.35rem;
+      color: var(--text-heading);
+    }
+
+    h3 { font-size: 1.18rem; margin-top: 1.75rem; color: var(--text-heading); }
+
+    p { margin: 0.5rem 0 0.75rem; }
+
+    a { color: var(--accent-blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    code {
+      font-family: "Fira Code", Menlo, Monaco, Consolas, "Courier New", monospace;
+      background-color: #f3f4ff;
+      padding: 0.12rem 0.3rem;
+      border-radius: 4px;
+      font-size: 0.93em;
+      color: #1d4ed8;
+    }
+
+    pre {
+      background: linear-gradient(145deg, #020617, #0b1120);
+      color: #e5e7eb;
+      padding: 1rem 1.1rem;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-size: 0.86rem;
+      line-height: 1.5;
+      margin: 0.75rem 0 1.5rem;
+      border: 1px solid rgba(15, 23, 42, 0.6);
+    }
+
+    pre code { background: none; padding: 0; color: inherit; }
+
+    .note, .exercise, .warning, .tip, .student-edit {
+      padding: 0.9rem 1.1rem;
+      margin: 1rem 0 1.5rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      border: 1px solid transparent;
+    }
+
+    .note {
+      border-left: 4px solid var(--accent-blue);
+      background: radial-gradient(circle at top left, #eff6ff 0, #e0f2fe 45%, #eef2ff 100%);
+      border-color: rgba(37, 99, 235, 0.4);
+    }
+
+    .exercise {
+      border-left: 4px solid var(--accent-green);
+      background: linear-gradient(135deg, #ecfdf3, #f0fdf4);
+      border-color: rgba(22, 163, 74, 0.4);
+    }
+
+    .warning {
+      border-left: 4px solid var(--accent-red);
+      background: linear-gradient(135deg, #fef2f2, #fee2e2);
+      border-color: rgba(220, 38, 38, 0.4);
+    }
+
+    .tip {
+      border-left: 4px solid var(--accent-amber);
+      background: linear-gradient(135deg, #fffbeb, #fef3c7);
+      border-color: rgba(217, 119, 6, 0.4);
+    }
+
+    .student-edit {
+      border-left: 4px solid var(--accent-green);
+      background: linear-gradient(135deg, #f0fdf4, #ecfdf5);
+      border-color: rgba(22, 163, 74, 0.45);
+    }
+
+    .exercise-title, .label {
+      font-weight: 650;
+      margin-bottom: 0.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 0.78rem;
+    }
+
+    .exercise-title { color: #166534; }
+    .label-amber { color: #92400e; }
+    .label-green { color: #166534; }
+
+    ol, ul { padding-left: 1.4rem; }
+    li { margin: 0.4rem 0; }
+    li > ul, li > ol { margin-top: 0.15rem; margin-bottom: 0.15rem; }
+
+    .note ul, .warning ul, .tip ul, .student-edit ul,
+    .note ol, .warning ol, .tip ol, .exercise ol {
+      margin-top: 0.4rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .tip li pre, .note li pre, .student-edit li pre {
+      margin: 0.35rem 0 0.45rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.93rem;
+    }
+
+    table th {
+      background: linear-gradient(135deg, #dbeafe, #e0f2fe);
+      color: var(--text-heading);
+      font-weight: 600;
+      padding: 0.7rem 0.9rem;
+      text-align: left;
+      border-bottom: 2px solid var(--accent-blue);
+    }
+
+    table td {
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid #e2e8f0;
+      vertical-align: top;
+    }
+
+    table tr:hover { background-color: #f8fafc; }
+
+    td ul { margin: 0.1rem 0; }
+    td li { margin: 0.2rem 0; }
+
+    .subtitle {
+      text-align: center;
+      color: #64748b;
+      margin-bottom: 1.5rem;
+      font-size: 1.05rem;
+    }
+
+    .file-tree {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+      margin: 0.75rem 0 1.5rem;
+      font-family: "Fira Code", Menlo, Monaco, Consolas, monospace;
+      font-size: 0.86rem;
+      white-space: pre;
+      overflow-x: auto;
+      line-height: 1.55;
+    }
+
+    .seq { margin: 0.5rem 0 1.5rem; }
+
+    .seq-step {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: 0.75rem;
+      margin: 0 0 0.9rem;
+    }
+
+    .seq-num {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 999px;
+      background: #dbeafe;
+      color: #1e3a8a;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .seq-card {
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 0.85rem 1rem 1rem;
+      background: #fff;
+    }
+
+    .seq-card h3 {
+      margin: 0 0 0.7rem;
+      font-size: 1.05rem;
+    }
+
+    .flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.2rem;
+      width: 100%;
+    }
+
+    .flow + .flow { margin-top: 0.85rem; }
+
+    .flow-box {
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      border-radius: 8px;
+      padding: 0.45rem 0.75rem;
+      text-align: center;
+      font-size: 0.92rem;
+      line-height: 1.4;
+    }
+
+    .flow-box.hit {
+      background: #ecfdf3;
+      border-color: rgba(22, 163, 74, 0.5);
+      font-weight: 650;
+    }
+
+    .flow-box.amber {
+      background: #fffbeb;
+      border-color: rgba(217, 119, 6, 0.5);
+    }
+
+    .flow-arrow {
+      color: #64748b;
+      line-height: 1;
+      font-size: 0.9rem;
+    }
+
+    .flow-row, .flow-split {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .flow-split {
+      align-items: stretch;
+    }
+
+    .path {
+      flex: 1 1 240px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 0.7rem 0.75rem 0.8rem;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .path-kicker {
+      font-weight: 650;
+      font-size: 0.78rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #1e3a8a;
+      margin-bottom: 0.25rem;
+    }
+
+    .choice {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem;
+      width: 100%;
+    }
+
+    .record {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .record-title {
+      background: #ecfdf3;
+      padding: 0.55rem 0.8rem;
+      font-weight: 650;
+      text-align: center;
+    }
+
+    .record-row {
+      display: grid;
+      grid-template-columns: 7.2rem 1fr;
+      gap: 0.5rem;
+      padding: 0.45rem 0.8rem;
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.92rem;
+    }
+
+    .record-row span:first-child {
+      font-weight: 650;
+      color: #1e3a8a;
+    }
+
+    .seq-caption {
+      margin: 0.65rem 0 0;
+      font-size: 0.92rem;
+    }
+
+    @media (max-width: 640px) {
+      .record-row { grid-template-columns: 1fr; gap: 0.1rem; }
+      .choice { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Let the Crew Remember</h1>
+  <p class="subtitle">The same Suraksha chat. The two workers still run in order. This time the team keeps short facts from earlier questions about the same file.</p>
+
+  <div class="note">
+    <strong>How to follow this page.</strong>
+    <ul>
+      <li>You already have two agents, two tasks, the database lookups, and the chat.</li>
+      <li>Do the steps in order.</li>
+      <li>The file you change is <code>crew.jsonc</code>.</li>
+      <li>In Step 1 you add a few lines. In Step 2 you replace each task description with the full prompt on this page.</li>
+      <li>Copy each prompt as it is written.</li>
+      <li>Leave the agents and the chat as they are.</li>
+      <li>After each step, check what you should see before you continue.</li>
+      <li>New words are explained in parentheses the first time they appear.</li>
+    </ul>
+  </div>
+
+  <h2>The story, in plain words</h2>
+  <ul>
+    <li>You are still the <strong>claims officer</strong> (the human at the keyboard).</li>
+    <li>The <strong>coverage officer agent</strong> opens the database and writes the <strong>coverage opinion</strong> (a first reading of whether the contract seems to cover the accident).</li>
+    <li>The <strong>examiner brief agent</strong> then writes the <strong>brief</strong> (the short note for the meeting).</li>
+    <li>Neither note pays anyone. A <strong>senior examiner</strong> (a more senior human, not in this chat) still decides the money.</li>
+    <li>Each question still starts from the accident story and the database.</li>
+    <li>If you tell the agent something new, the next question does not know you said it.</li>
+    <li>The chat window also forgets the bubbles (the messages on the page) when you switch claims.</li>
+    <li>A person at a claims desk does not work like that. If the <strong>surveyor</strong> (the person who looks at the damaged car and reports what the photos show) phones and says the photos show rear damage only, the next person who opens that same file should still know.</li>
+    <li>CrewAI calls that store <strong>memory</strong> (short facts saved after an answer, then searched before the next answer).</li>
+    <li>With memory on, the crew saves short facts after each task.</li>
+    <li>Before the next task, it looks those facts up and hands the matching ones to the agent.</li>
+    <li>Both agents share this one memory. Neither agent file has a private memory of its own.</li>
+    <li>Memory is not the database, and it is not the chat bubbles.</li>
+  </ul>
+
+  <div class="note">
+    <strong>Memory is not the database.</strong>
+    <ul>
+      <li>Policy Record and Earlier Claims are still the records.</li>
+      <li>A remembered fact is something said in an earlier question.</li>
+      <li>The agent must say it came from that earlier question.</li>
+      <li>It must not pretend the fact was in the policy table.</li>
+    </ul>
+  </div>
+
+  <div class="warning">
+    <strong>A fact about one claim must stay on that claim.</strong>
+    <ul>
+      <li>Both agents share the same memory.</li>
+      <li>The memory is still there after you switch files in the sidebar.</li>
+      <li>A note about CLM-20481 must not be used when the question is about CLM-10021 or CLM-10044.</li>
+      <li>The task text below says so.</li>
+    </ul>
+  </div>
+
+  <h2>Where you are working</h2>
+  <ul>
+    <li>Stay inside <code>suraksha_claims_desk</code>.</li>
+    <li>If the chat is running, stop it with Ctrl+C.</li>
+    <li>On Windows PowerShell, set this once in that terminal:</li>
+  </ul>
+  <pre><code>$env:PYTHONUTF8="1"</code></pre>
+
+  <h2>Step 1: Turn memory on</h2>
+  <ul>
+    <li>In this step you switch memory on. You do not add a new file.</li>
+    <li>Leave the agents, the tasks, and the sequential process (tasks running one after another, in the order written) as they are.</li>
+  </ul>
+  <div class="student-edit">
+    <div class="label label-green">Change crew.jsonc</div>
+    <ul>
+      <li>Open <code>crew.jsonc</code>.</li>
+      <li>Next to <code>"tracing": true</code>, add <code>"memory": true</code> and the <code>embedder</code> block below.</li>
+      <li>Save the file.</li>
+    </ul>
+  </div>
+  <pre><code>"process": "sequential",
+"verbose": true,
+"tracing": true,
+"memory": true,
+"embedder": {
+  "provider": "openai",
+  "config": { "model_name": "text-embedding-3-large" }
+},</code></pre>
+  <ul>
+    <li><code>"memory": true</code> tells the crew to keep one shared memory for every agent that does not bring a memory of its own.</li>
+    <li>After a task finishes, CrewAI pulls short facts out of that answer and saves them.</li>
+    <li>The agent is given a tool named <code>Search memory</code>. The task text on this page tells it to search with the officer's question plus the claim id. If the task does not name a query, the whole task description may be used.</li>
+    <li>The first question after you turn this on has nothing saved yet, so the answers look like the ones you already know.</li>
+    <li>The second question is where memory shows up.</li>
+    <li>Saving and searching use the OpenAI key already in your <code>.env</code> file. You do not add another key.</li>
+  </ul>
+  <div class="warning">
+    <strong><code>MODEL_NAME</code> in <code>.env</code> is not the embedding model.</strong>
+    <ul>
+      <li>CrewAI reads the environment variable <code>MODEL_NAME</code> as the name of the embedding model.</li>
+      <li>If that line is a chat model, such as <code>gpt-5.4-mini</code> or <code>gpt-4o-mini</code>, the save fails.</li>
+      <li>The terminal says you are not allowed to generate embeddings from this model, and the next question behaves as if memory is off.</li>
+      <li>The <code>embedder</code> block above forces <code>text-embedding-3-large</code>, which is an embedding model.</li>
+      <li>Leave <code>MODEL=openai/gpt-4o-mini</code> in <code>.env</code> for the chat model.</li>
+      <li>Do not point <code>MODEL_NAME</code> at a chat model.</li>
+    </ul>
+  </div>
+
+  <h2>Step 2: Tell both tasks how to use a memory</h2>
+  <ul>
+    <li>In this step you replace each task description with the full prompt below.</li>
+    <li>A remembered sentence is not permission to mix files.</li>
+    <li>A fact about CLM-20481 must not be used when the question is about CLM-10021.</li>
+    <li>The task name, the agent, <code>context</code>, and <code>expected_output</code> stay as they were. Only the description text changes.</li>
+    <li>After you paste a prompt, read the box under it. Find each listed statement in the prompt. Those are the lines that are new or rewritten.</li>
+  </ul>
+  <div class="student-edit">
+    <div class="label label-green">Replace the coverage opinion description</div>
+    <ul>
+      <li>In <code>crew.jsonc</code>, find the task named <code>coverage_opinion</code>.</li>
+      <li>Replace the whole description with the prompt below.</li>
+      <li>Keep the surrounding quotes so the file stays valid JSON.</li>
+    </ul>
+  </div>
+  <pre><code>A claims officer asked: {officer_question}
+
+Claim id: {claim_id}
+
+Accident story:
+{narrative}
+
+The policy wording, the papers on file, and any older claims are NOT in this message.
+
+Before you answer:
+1. Call Policy Record with this claim id.
+2. If the story names a garage, call Earlier Claims with that garage name.
+3. Call the tool Search memory. The query must be the officer's question plus this claim id. A sentence it returns is a memory. If that sentence names this claim id, quote it. A Policy Record line that says the pictures are not in the file does not cancel that sentence.
+
+Then write a preliminary coverage opinion.
+1. Restate what the accident story says.
+2. Quote the clause or circular that matters, using only the Policy Record text.
+3. If you opened Earlier Claims, say what that record contained.
+4. Say whether cover looks available, partly unclear, or should be referred.
+5. If Policy Record shows a simple complete claim under the simple-pay limit, say a rules check could settle it. Do not mark it paid.
+6. If the question asks for a fact that is in neither the story, nor the records, nor a memory that names this same claim id, say it is not on file.
+
+Answer the officer's question directly.
+- Put that answer in the first two sentences of Preliminary opinion.
+- If the question asks for a fact that is in the accident story, in a record this task told you to open, or in a memory that names this same claim id, state that fact there.
+- If the question asks for a fact that is not in the accident story, the records, or a memory that names this same claim id, say it is not on file in Not on file. Do not invent it.
+- Do not write a generic opinion that never mentions the question.
+
+MEMORY:
+- You may use a remembered fact only when it names claim {claim_id}.
+- If a memory names a different claim, ignore it.
+- Say that a remembered fact came from an earlier question. It is not a row from Policy Record or Earlier Claims.
+- The block titled Memories from past conversations is an automatic selection and can miss the sentence you need. Search memory is the check that counts.
+
+CONSTRAINTS:
+- Amounts in INR.
+- Do not say the claim is paid, approved, or declined.
+- Label the opinion PRELIMINARY and NON-BINDING.</code></pre>
+  <div class="tip">
+    <div class="label label-amber">Look at what changed in the coverage opinion</div>
+    <p>Find each statement below in the prompt you just pasted. These are the lines that are new or rewritten. The rest of the prompt is unchanged.</p>
+    <ul>
+      <li><strong>New.</strong> Step 3 under <code>Before you answer</code>. The agent must call Search memory, and a Policy Record line about missing pictures does not cancel that sentence.
+        <pre><code>3. Call the tool Search memory. The query must be the officer's question plus this claim id. A sentence it returns is a memory. If that sentence names this claim id, quote it. A Policy Record line that says the pictures are not in the file does not cancel that sentence.</code></pre>
+      </li>
+      <li><strong>Rewritten.</strong> Step 6 under <code>Then write a preliminary coverage opinion</code>. A fact is "not on file" only when it is also missing from a memory that names this claim.
+        <pre><code>6. If the question asks for a fact that is in neither the story, nor the records, nor a memory that names this same claim id, say it is not on file.</code></pre>
+      </li>
+      <li><strong>Rewritten.</strong> The line that says where a known fact may come from. A same-claim memory now counts.
+        <pre><code>- If the question asks for a fact that is in the accident story, in a record this task told you to open, or in a memory that names this same claim id, state that fact there.</code></pre>
+      </li>
+      <li><strong>Rewritten.</strong> The line that used to say "not in those texts". It now names the accident story, the records, or a same-claim memory.
+        <pre><code>- If the question asks for a fact that is not in the accident story, the records, or a memory that names this same claim id, say it is not on file in Not on file. Do not invent it.</code></pre>
+      </li>
+      <li><strong>New.</strong> The whole <code>MEMORY</code> block, just above <code>CONSTRAINTS</code>.
+        <pre><code>MEMORY:
+- You may use a remembered fact only when it names claim {claim_id}.
+- If a memory names a different claim, ignore it.
+- Say that a remembered fact came from an earlier question. It is not a row from Policy Record or Earlier Claims.
+- The block titled Memories from past conversations is an automatic selection and can miss the sentence you need. Search memory is the check that counts.</code></pre>
+      </li>
+    </ul>
+  </div>
+  <div class="student-edit">
+    <div class="label label-green">Replace the examiner brief description</div>
+    <ul>
+      <li>In the same file, find the task named <code>examiner_brief</code>.</li>
+      <li>Replace the whole description with the prompt below.</li>
+      <li>Keep <code>"context": ["coverage_opinion"]</code>, the agent, and <code>expected_output</code>.</li>
+    </ul>
+  </div>
+  <pre><code>A claims officer asked: {officer_question}
+
+Claim id: {claim_id}
+
+You are given the finished coverage opinion in your context. Call the tool Search memory before you write. The query must be the officer's question plus this claim id. If Search memory returns a sentence that names this claim id, quote that sentence and say it came from an earlier question. Do not replace that sentence with the words not on file.
+
+Write a brief for the senior examiner.
+1. In one short paragraph, restate what the opinion says happened.
+2. Quote the clause or circular the opinion relied on. If the opinion names none, say so.
+3. Say whether the opinion treats cover as available, partly unclear, or a referral.
+4. List three checks the senior examiner should do next. Take them from the opinion. Do not invent a new investigation.
+5. If the opinion says a fact is not on file, repeat that it is not on file. If a memory names this same claim id, you may repeat that memory and must say it came from an earlier question.
+
+Answer the officer's question from the opinion.
+- Put that answer in the first two sentences of Reading.
+- Use only what the opinion already said, plus a memory that names this same claim id. Say that a memory came from an earlier question.
+- If the opinion says a fact is not on file, and no memory names this same claim id, repeat that in Still not on file. Do not invent it.
+- Do not write a brief that never mentions the question.
+
+MEMORY:
+- You may use a remembered fact only when it names claim {claim_id}.
+- If a memory names a different claim, ignore it.
+- Say that a remembered fact came from an earlier question. It is not a row from Policy Record or Earlier Claims.
+- The block titled Memories from past conversations is an automatic selection and can miss the sentence you need. Search memory is the check that counts.
+
+CONSTRAINTS:
+- Do not call Policy Record or Earlier Claims. You do not have those tools.
+- You may call Search memory. That is not a database tool.
+- Do not add facts that are absent from the coverage opinion and absent from a memory that names this same claim id.
+- Amounts in INR, and only amounts the opinion already stated.
+- Do not say the claim is paid, approved, or declined.
+- Label the brief NON-BINDING.</code></pre>
+  <div class="tip">
+    <div class="label label-amber">Look at what changed in the examiner brief</div>
+    <p>Find each statement below in the prompt you just pasted. These are the lines that are new or rewritten. The rest of the prompt is unchanged.</p>
+    <ul>
+      <li><strong>Rewritten.</strong> The sentence after the claim id. It used to say the opinion is the only source. It now tells the agent to call Search memory, and not to replace a same-claim sentence with "not on file".
+        <pre><code>You are given the finished coverage opinion in your context. Call the tool Search memory before you write. The query must be the officer's question plus this claim id. If Search memory returns a sentence that names this claim id, quote that sentence and say it came from an earlier question. Do not replace that sentence with the words not on file.</code></pre>
+      </li>
+      <li><strong>Rewritten.</strong> Step 5. A same-claim memory may be repeated, and the brief must say it came from an earlier question.
+        <pre><code>5. If the opinion says a fact is not on file, repeat that it is not on file. If a memory names this same claim id, you may repeat that memory and must say it came from an earlier question.</code></pre>
+      </li>
+      <li><strong>Rewritten.</strong> The line that said to use only the opinion. A same-claim memory may now be used too.
+        <pre><code>- Use only what the opinion already said, plus a memory that names this same claim id. Say that a memory came from an earlier question.</code></pre>
+      </li>
+      <li><strong>Rewritten.</strong> The Still not on file line. Repeat "not on file" only when no memory names this claim.
+        <pre><code>- If the opinion says a fact is not on file, and no memory names this same claim id, repeat that in Still not on file. Do not invent it.</code></pre>
+      </li>
+      <li><strong>New.</strong> The whole <code>MEMORY</code> block, just above <code>CONSTRAINTS</code>. Same four lines as in the coverage opinion.
+        <pre><code>MEMORY:
+- You may use a remembered fact only when it names claim {claim_id}.
+- If a memory names a different claim, ignore it.
+- Say that a remembered fact came from an earlier question. It is not a row from Policy Record or Earlier Claims.
+- The block titled Memories from past conversations is an automatic selection and can miss the sentence you need. Search memory is the check that counts.</code></pre>
+      </li>
+      <li><strong>Rewritten.</strong> The first lines under <code>CONSTRAINTS</code>. They used to say the brief has no tools. Search memory is allowed. Policy Record and Earlier Claims are not.
+        <pre><code>- Do not call Policy Record or Earlier Claims. You do not have those tools.
+- You may call Search memory. That is not a database tool.
+- Do not add facts that are absent from the coverage opinion and absent from a memory that names this same claim id.</code></pre>
+      </li>
+    </ul>
+  </div>
+  <ul>
+    <li><code>desk.py</code> and <code>app.py</code> stay as they are.</li>
+    <li>The crew is loaded from <code>crew.jsonc</code>, so memory turns on with that file.</li>
+    <li>The chat still only calls <code>respond</code>.</li>
+  </ul>
+
+  <div class="warning">
+    <strong>Restart the chat after this change.</strong>
+    <ul>
+      <li>The desk loads the crew once and keeps that copy.</li>
+      <li>A chat that is already open does not have memory yet.</li>
+      <li>Stop it with Ctrl+C, then start it again.</li>
+    </ul>
+  </div>
+
+  <h2>Step 3: Teach it one new fact</h2>
+  <ul>
+    <li>In this step you tell the crew one new fact that is not in the database.</li>
+    <li>Start the chat.</li>
+    <li>Select CLM-20481.</li>
+    <li>Type the sentence below into the box at the bottom. Do not use the three buttons for this question. Those buttons do not contain the surveyor's sentence.</li>
+    <li>Wait until both headings appear.</li>
+    <li>That finished answer is also the save. The bubbles on the page are not the memory.</li>
+  </ul>
+  <pre><code>uv run streamlit run app.py</code></pre>
+  <p>Select <strong>CLM-20481</strong>. In the box at the bottom, type this and send it:</p>
+  <pre><code>The surveyor phoned just now about claim CLM-20481 and said the photos show rear damage only. Remember that.</code></pre>
+  <ul>
+    <li>A good answer still starts with the preliminary coverage opinion.</li>
+    <li>It still quotes Exclusion 4 and circular CL-17 from Policy Record.</li>
+    <li>It still does not pay or reject the claim.</li>
+    <li>It may also repeat the surveyor's sentence.</li>
+    <li>Records opened should still name Policy Record and Earlier Claims, because Highway Motors is in the story.</li>
+    <li>The surveyor sentence is not in the database.</li>
+    <li>If the opinion pretends Policy Record contained "rear damage only", the task text was not updated.</li>
+  </ul>
+  <ul>
+    <li>This first answer is also the save.</li>
+    <li>CrewAI stores short facts from both tasks after they finish.</li>
+    <li>The save is on disk, so it is still there if you stop the chat and start it again.</li>
+    <li>The bubbles on the page are not that store.</li>
+    <li>Switching claims clears the bubbles and leaves the memory.</li>
+  </ul>
+
+  <h2>Step 4: Ask a follow-up that is not in the file</h2>
+  <ul>
+    <li>In this step you check that the new fact comes back for the same claim, and does not leak onto a different claim.</li>
+    <li>Stay on <strong>CLM-20481</strong>.</li>
+    <li>The story on the sidebar still does not mention the phone call.</li>
+    <li>Type:</li>
+  </ul>
+  <pre><code>What did the surveyor say about the photos on claim CLM-20481?</code></pre>
+  <ul>
+    <li>A good answer says the photos show rear damage only, and that this came from an earlier question.</li>
+    <li>It does not invent a chassis number.</li>
+    <li>It does not mark the claim paid or declined.</li>
+    <li>On the second question the terminal may take a little longer, because the crew searches memory before the coverage task starts and again before the brief task starts.</li>
+  </ul>
+  <ul>
+    <li>Then select <strong>CLM-10021</strong>. The chat bubbles clear.</li>
+    <li>Type:</li>
+  </ul>
+  <pre><code>What did the surveyor say about the photos on claim CLM-10021?</code></pre>
+  <ul>
+    <li>A good answer says that phone call is not on this file.</li>
+    <li>It may mention that a similar note exists for CLM-20481 and then set it aside.</li>
+    <li>It must not treat rear damage as a fact about the Banjara Hills bumper scrape.</li>
+  </ul>
+
+  <h2>Step 5: Wipe the memory and ask again</h2>
+  <ul>
+    <li>In this step you delete the saved facts and confirm the phone call is gone.</li>
+    <li>The database stays.</li>
+    <li>Stop the chat with Ctrl+C first. A reset while the chat is still open does not stick.</li>
+    <li>From <code>suraksha_claims_desk</code> run:</li>
+  </ul>
+  <pre><code>crewai reset-memories -m</code></pre>
+  <ul>
+    <li>That deletes the crew's saved facts.</li>
+    <li>Start the chat again with <code>uv run streamlit run app.py</code>.</li>
+    <li>Select CLM-20481 and ask the surveyor question once more, without sending the phone-call sentence first.</li>
+    <li>Both parts should now say that what the surveyor said is not on file.</li>
+  </ul>
+
+  <div class="tip">
+    <div class="label label-amber">Where the facts sit</div>
+    <ul>
+      <li>You do not open the memory files to finish this exercise.</li>
+      <li>On Windows the files are under your local application data, in a <code>CrewAI</code> folder, then a folder named after the project directory (<code>suraksha_claims_desk</code>), then <code>memory</code>.</li>
+      <li>Inside that is a LanceDB store named <code>memories.lance</code>.</li>
+      <li>There is no folder on disk called <code>/crew/suraksha-coverage-desk</code>.</li>
+      <li>That string is a scope, a label stored in a column of the LanceDB table.</li>
+      <li><code>crewai reset-memories -m</code> clears that store.</li>
+      <li>Run it from the project folder, with the chat stopped, so the next start builds a fresh memory.</li>
+    </ul>
+  </div>
+
+  <h2>What just happened</h2>
+  <div class="file-tree">You tell the crew a new fact about CLM-20481
+        │
+        ▼
+Both tasks run, then short facts are saved
+        │
+        ▼
+The next question searches those facts
+        │
+        ▼
+Same claim: the surveyor sentence comes back
+Other claim: that sentence is ignored</div>
+  <ul>
+    <li><code>"memory": true</code> is one shared memory for the crew. Both agents read it and both tasks add to it.</li>
+    <li>Memory sits beside the tools. The tools still read <code>suraksha_claims.db</code>. Memory holds what was said in an earlier question.</li>
+    <li>A remembered fact is usable only when it names the claim in front of the agent.</li>
+    <li>The chat bubbles are not the memory.</li>
+    <li>Clearing the screen, or switching claims, does not delete the saved facts. <code>crewai reset-memories -m</code> does.</li>
+  </ul>
+
+  <div class="exercise">
+    <div class="exercise-title">Try this on your own</div>
+    <ol>
+      <li>On CLM-10044, send: "For claim CLM-10044, the customer phoned and said they will bring the police report on Monday. Remember that." Then ask whether the police report is on file.
+        <ul>
+          <li>The policy record still says it is not on file.</li>
+          <li>The answer may add that the customer promised it on Monday.</li>
+          <li>The answer must say that promise came from an earlier question.</li>
+        </ul>
+      </li>
+      <li>Stay on CLM-10044 and ask about the surveyor photos.
+        <ul>
+          <li>The rear-damage sentence belongs to CLM-20481.</li>
+          <li>This answer should not use it as a fact about Necklace Road.</li>
+        </ul>
+      </li>
+      <li>Stop the chat, run <code>crewai reset-memories -m</code>, start the chat, and ask the Monday question again without sending the phone sentence first.
+        <ul>
+          <li>The promise should be gone.</li>
+          <li>The missing police report should still be reported, because that line is in the database, not in memory.</li>
+        </ul>
+      </li>
+    </ol>
+  </div>
+
+  <h2>How a fact is filed</h2>
+  <ul>
+    <li>The steps above are enough to finish the exercise. Read this after Step 5 worked.</li>
+    <li>You do not add a file. The pictures follow the surveyor sentence on CLM-20481, in order.</li>
+  </ul>
+
+  <div class="seq">
+    <div class="seq-step">
+      <div class="seq-num">1</div>
+      <div class="seq-card">
+        <h3>One memory for the whole crew</h3>
+        <div class="flow">
+          <div class="flow-row">
+            <div class="flow-box">Coverage officer writes</div>
+            <div class="flow-box">Brief writer writes</div>
+          </div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box hit">One crew memory</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seq-step">
+      <div class="seq-num">2</div>
+      <div class="seq-card">
+        <h3>The answer is split into short sentences</h3>
+        <div class="flow">
+          <div class="flow-box">Coverage opinion</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box">The model splits it into sentences that can stand alone</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-row">
+            <div class="flow-box hit">photos show rear damage only</div>
+            <div class="flow-box">the other sentences</div>
+          </div>
+        </div>
+        <p class="seq-caption">The same split runs again after the brief.</p>
+      </div>
+    </div>
+
+    <div class="seq-step">
+      <div class="seq-num">3</div>
+      <div class="seq-card">
+        <h3>Each sentence is filed like this</h3>
+        <div class="record">
+          <div class="record-title">photos show rear damage only</div>
+          <div class="record-row"><span>Folder</span><span>The model picks one. If that fails, the sentence is still saved under the crew's root folder.</span></div>
+          <div class="record-row"><span>Categories</span><span>A few words the model suggests.</span></div>
+          <div class="record-row"><span>Importance</span><span>A number from 0 to 1. If that suggestion fails, it is saved as 0.5.</span></div>
+          <div class="record-row"><span>Embedding</span><span>A list of numbers that stands for the meaning, so two sentences can be compared even when the words differ. You do not write that list.</span></div>
+        </div>
+        <p class="seq-caption">The save runs in the background.</p>
+      </div>
+    </div>
+
+    <div class="seq-step">
+      <div class="seq-num">4</div>
+      <div class="seq-card">
+        <h3>Near-copies are folded together</h3>
+        <div class="flow-split">
+          <div class="path">
+            <div class="path-kicker">Inside one batch</div>
+            <div class="flow-box">Similarity 0.98 or higher</div>
+            <div class="flow-arrow">▼</div>
+            <div class="flow-box amber">Drop the copy before it is stored</div>
+          </div>
+          <div class="path">
+            <div class="path-kicker">Already on disk</div>
+            <div class="flow-box">A new sentence is ready to save. The brief may repeat "photos show rear damage only" after the opinion already saved it.</div>
+            <div class="flow-arrow">▼</div>
+            <div class="flow-box">It is compared with up to 5 sentences already stored.</div>
+            <div class="flow-arrow">▼</div>
+            <div class="flow-box">If the closest score is 0.85 or below, the new sentence is stored and this path stops.</div>
+            <div class="flow-arrow">▼</div>
+            <div class="flow-box amber">If the closest score is above 0.85, the model is asked. It does not store a second copy yet.</div>
+            <div class="flow-arrow">▼</div>
+            <div class="flow-box">For the old sentence it picks one: keep it, rewrite it with the new detail, or delete it.</div>
+            <div class="flow-arrow">▼</div>
+            <div class="flow-box">It also picks whether the new sentence is stored as a second copy.</div>
+            <div class="flow-arrow">▼</div>
+            <div class="flow-box hit">The opinion and the brief both mention rear damage, so you often end with one stored sentence.</div>
+          </div>
+        </div>
+        <p class="seq-caption">The opinion and the brief can both mention rear damage. You will often end up with one stored sentence.</p>
+      </div>
+    </div>
+
+    <div class="seq-step">
+      <div class="seq-num">5</div>
+      <div class="seq-card">
+        <h3>The save finishes before the next question</h3>
+        <div class="flow">
+          <div class="flow-box">Coverage task finishes</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box">Save starts in the background</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box">The brief can start while that save is still finishing</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box">A search waits until those saves have landed</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box">When the crew ends, any save still in flight is finished first</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box hit">A follow-up in a new question can see the phone call</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="seq-step">
+      <div class="seq-num">6</div>
+      <div class="seq-card">
+        <h3>The prompt decides the search</h3>
+        <div class="flow">
+          <div class="flow-box hit">This desk names the query in the prompt</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box">Call Search memory with the officer's question plus the claim id</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box hit">Only that search runs. The phone-call sentence can be found.</div>
+        </div>
+        <div class="flow">
+          <div class="flow-box amber">If the prompt does not name a query</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box">The whole task description may be used instead</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box amber">That text is long, so the short phone call can be missed</div>
+        </div>
+        <p class="seq-caption">One search runs, not both. Both agents on this desk are told to use the officer's question. Policy Record and Earlier Claims stay the database tools. Search memory is not a third database.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>The filing step also calls the model.</strong>
+    <ul>
+      <li>The answer itself uses <code>openai/gpt-4o-mini</code>.</li>
+      <li>Saving a fact uses the same OpenAI key in <code>.env</code>. A search that uses the whole task description also calls the model. This desk's prompt asks for the short question instead.</li>
+      <li>Keep using the fictional claims. A real customer's file does not belong in this store.</li>
+    </ul>
+  </div>
+
+  <h2>Scopes inside the memory</h2>
+  <ul>
+    <li>A scope is a path-shaped label stored on a sentence.</li>
+    <li>It is not a folder you can open in File Explorer.</li>
+    <li>You do not write this tree in <code>crew.jsonc</code>. The crew name fixes the root. The agent role, including the claim id, fixes the <code>/agent/</code> line. The model picks the last part, such as <code>claims</code>.</li>
+  </ul>
+
+  <div class="seq">
+    <div class="seq-step">
+      <div class="seq-num">1</div>
+      <div class="seq-card">
+        <h3>Where the surveyor sentence is labeled</h3>
+        <div class="flow">
+          <div class="flow-box hit">photos show rear damage only</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box">Saved after the coverage opinion on CLM-20481</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box">Label: /crew/suraksha-coverage-desk/agent/coverage-officer-for-claim-clm-20481/claims</div>
+        </div>
+        <p class="seq-caption">The brief writer has its own <code>/agent/</code> line for the same claim. A near-copy of this sentence is often folded into the one already stored.</p>
+      </div>
+    </div>
+
+    <div class="seq-step">
+      <div class="seq-num">2</div>
+      <div class="seq-card">
+        <h3>A different claim gets a different label</h3>
+        <div class="file-tree">/crew/suraksha-coverage-desk
+  /agent/coverage-officer-for-claim-clm-20481
+    /claims
+      photos show rear damage only
+  /agent/coverage-officer-for-claim-clm-10021
+    /claims
+      no surveyor sentence for this claim</div>
+        <p class="seq-caption">CLM-10021 does not reuse the CLM-20481 label. The role text includes the claim id, so the <code>/agent/</code> line changes with the file on screen.</p>
+      </div>
+    </div>
+
+    <div class="seq-step">
+      <div class="seq-num">3</div>
+      <div class="seq-card">
+        <h3>The question is CLM-10021. The search can still see CLM-20481.</h3>
+        <div class="flow">
+          <div class="flow-box">Search starts at /crew/suraksha-coverage-desk</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box">Both claim labels under that root are visible</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box amber">"surveyor" and "photos" can return "photos show rear damage only"</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box">The label does not block that sentence</div>
+          <div class="flow-arrow">▼</div>
+          <div class="flow-box hit">The MEMORY block is the rule: use the sentence only when it names this claim id</div>
+        </div>
+        <p class="seq-caption">On CLM-10021 the agent must set the rear-damage sentence aside. On CLM-20481 the same sentence names the claim in front of it, so it may be used.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>How a matching fact is chosen</h2>
+  <ul>
+    <li>Each stored sentence gets one <code>composite</code> score.</li>
+    <li>CrewAI hands back the sentences with the highest scores.</li>
+    <li>The score is a weighted sum of three numbers, each from 0 to 1.</li>
+    <li>The names below are the names in CrewAI's <code>compute_composite_score</code>.</li>
+  </ul>
+  <pre><code>composite = semantic_weight * semantic_score
+          + recency_weight * decay
+          + importance_weight * importance
+
+decay = 0.5 ** (age_days / recency_half_life_days)</code></pre>
+  <ul>
+    <li>With the defaults, that is <code>0.5 * semantic_score + 0.3 * decay + 0.2 * importance</code>.</li>
+    <li>The three weights add up to 1, so <code>composite</code> stays between 0 and 1.</li>
+    <li><code>**</code> means "raised to the power of".</li>
+  </ul>
+  <table>
+    <thead><tr><th>Piece</th><th>Name in the formula</th><th>On the surveyor sentence</th></tr></thead>
+    <tbody>
+      <tr><td>Meaning</td><td><code>semantic_score</code>, multiplied by <code>semantic_weight</code> <code>0.5</code></td><td>
+        <ul>
+          <li>How close the question is to the stored sentence.</li>
+          <li>"What did the surveyor say about the photos?" can match "the photos show rear damage only" even when the words differ.</li>
+          <li>This is the largest share.</li>
+        </ul>
+      </td></tr>
+      <tr><td>Freshness</td><td><code>decay</code>, multiplied by <code>recency_weight</code> <code>0.3</code></td><td>
+        <ul>
+          <li>A sentence saved just now has <code>decay</code> <code>1.0</code>. An older sentence has a smaller <code>decay</code>.</li>
+          <li><code>recency_weight</code> is the share of the score. It is not the half-life.</li>
+        </ul>
+      </td></tr>
+      <tr><td>Importance</td><td><code>importance</code>, multiplied by <code>importance_weight</code> <code>0.2</code></td><td>
+        <ul>
+          <li>A number from 0 to 1 chosen when the sentence was saved, and stored on the record.</li>
+          <li>It stays put as the days pass.</li>
+        </ul>
+      </td></tr>
+    </tbody>
+  </table>
+  <ul>
+    <li><code>recency_half_life_days</code> is used only inside <code>decay</code>.</li>
+    <li>It is the number of days until freshness falls by half. The default is <code>30</code>.</li>
+    <li>CrewAI counts <code>age_days</code> from the sentence's <code>created_at</code> (seconds since it was saved, divided by 86400).</li>
+    <li>It then divides that age by <code>recency_half_life_days</code> and uses the result as the exponent:</li>
+  </ul>
+  <pre><code>decay = 0.5 ** (age_days / recency_half_life_days)</code></pre>
+  <ul>
+    <li>A larger <code>recency_half_life_days</code> makes <code>decay</code> fall more slowly.</li>
+    <li>With the default of 30:</li>
+  </ul>
+  <table>
+    <thead><tr><th><code>age_days</code></th><th>Exponent</th><th><code>decay</code></th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td><code>0 / 30 = 0</code></td><td><code>0.5 ** 0 = 1.0</code></td></tr>
+      <tr><td>30</td><td><code>30 / 30 = 1</code></td><td><code>0.5 ** 1 = 0.5</code></td></tr>
+      <tr><td>60</td><td><code>60 / 30 = 2</code></td><td><code>0.5 ** 2 = 0.25</code></td></tr>
+      <tr><td>90</td><td><code>90 / 30 = 3</code></td><td><code>0.5 ** 3 = 0.125</code></td></tr>
+    </tbody>
+  </table>
+  <p>Take a surveyor sentence with <code>semantic_score</code> <code>0.8</code> and <code>importance</code> <code>0.5</code>:</p>
+  <ul>
+    <li>Saved today, <code>decay</code> is <code>1.0</code>. <code>composite = 0.5*0.8 + 0.3*1.0 + 0.2*0.5 = 0.80</code>.</li>
+    <li>30 days later, <code>decay</code> is <code>0.5</code>. <code>composite = 0.40 + 0.15 + 0.10 = 0.65</code>.</li>
+    <li>60 days later, <code>decay</code> is <code>0.25</code>. <code>composite = 0.40 + 0.075 + 0.10 = 0.575</code>.</li>
+  </ul>
+  <ul>
+    <li>Meaning still supplies 0.40 of that score.</li>
+    <li>Freshness adds 0.30 today and 0.075 after 60 days.</li>
+    <li>A phone call from today outranks a similar note from last quarter when the wording is equally close.</li>
+  </ul>
+  <ul>
+    <li>There is a faster search, <code>depth="shallow"</code>, which compares vectors and applies the score above, with no extra model call.</li>
+    <li><code>"memory": true</code> uses <code>deep</code>.</li>
+    <li>When the query is a long task description, the model first picks likely folders and may search a second time when the first pass looks unsure.</li>
+    <li>This desk does not do that. The prompt names the short question, and that is the search that runs.</li>
+  </ul>
+
+  <h2>The settings on the memory</h2>
+  <ul>
+    <li><code>"memory": true</code> fills every row below.</li>
+    <li>The four score names (<code>semantic_weight</code>, <code>recency_weight</code>, <code>importance_weight</code>, <code>recency_half_life_days</code>) are arguments of <code>Memory</code>.</li>
+    <li>Placing them beside <code>"tracing"</code> does nothing, because <code>Crew</code> does not read them.</li>
+    <li>To change them, use one of the two blocks below, then restart the chat.</li>
+    <li>This exercise is already finished with <code>"memory": true</code>.</li>
+    <li>The blocks show the same defaults, so you can see where each name goes.</li>
+  </ul>
+
+  <h3>In <code>crew.jsonc</code></h3>
+  <ul>
+    <li>Replace <code>"memory": true</code> with a memory object. Leave the agents and the tasks as they are.</li>
+    <li>When <code>memory</code> is an object, CrewAI uses that object as it is written.</li>
+    <li>It does not copy the crew's <code>embedder</code>, and it does not build <code>/crew/suraksha-coverage-desk</code> for you.</li>
+    <li>Put <code>llm</code>, <code>embedder</code>, and <code>root_scope</code> inside the object.</li>
+    <li>The three weights should add up to about <code>1.0</code>.</li>
+    <li><code>recency_half_life_days</code> must be at least <code>1</code>.</li>
+  </ul>
+  <pre><code>"memory": {
+  "llm": "openai/gpt-4o-mini",
+  "embedder": {
+    "provider": "openai",
+    "config": { "model_name": "text-embedding-3-large" }
+  },
+  "root_scope": "/crew/suraksha-coverage-desk",
+  "semantic_weight": 0.5,
+  "recency_weight": 0.3,
+  "importance_weight": 0.2,
+  "recency_half_life_days": 30
+},</code></pre>
+  <div class="note">
+    <strong>One memory setting.</strong>
+    <ul>
+      <li>The object replaces <code>"memory": true</code>. It does not sit next to it.</li>
+      <li>The <code>embedder</code> you already added at crew level is read only while <code>memory</code> is <code>true</code>.</li>
+      <li>After this change, the <code>embedder</code> inside the object is the one memory uses.</li>
+    </ul>
+  </div>
+
+  <h3>In <code>desk.py</code></h3>
+  <ul>
+    <li>The chat reads the memory that was attached when the crew was built, <code>crew._memory</code>.</li>
+    <li>Build a <code>Memory</code> and assign it there, after <code>load_crew</code>.</li>
+    <li>The same four names are keyword arguments.</li>
+    <li>Set <code>llm</code>, <code>embedder</code>, and <code>root_scope</code> here too.</li>
+    <li>If <code>crew.jsonc</code> still says <code>"memory": true</code>, this assignment is the memory the next question uses.</li>
+  </ul>
+  <pre><code>from crewai.memory.unified_memory import Memory
+
+crew, defaults = load_crew(Path(__file__).parent / "crew.jsonc")
+crew._memory = Memory(
+    llm="openai/gpt-4o-mini",
+    embedder={
+        "provider": "openai",
+        "config": {"model_name": "text-embedding-3-large"},
+    },
+    root_scope="/crew/suraksha-coverage-desk",
+    semantic_weight=0.5,
+    recency_weight=0.3,
+    importance_weight=0.2,
+    recency_half_life_days=30,
+)</code></pre>
+  <table>
+    <thead><tr><th>Setting</th><th>Default on this desk</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td><code>llm</code></td><td>The coverage officer's <code>openai/gpt-4o-mini</code> when <code>memory</code> is <code>true</code></td><td>
+        <ul>
+          <li>Splits an answer into short sentences, picks a folder and an <code>importance</code>, and plans a long search.</li>
+          <li>On a <code>Memory</code> you build yourself, set this or the default is <code>gpt-5.4-mini</code>.</li>
+        </ul>
+      </td></tr>
+      <tr><td><code>embedder</code></td><td>OpenAI <code>text-embedding-3-large</code></td><td>Turns each sentence, and each search, into a vector so <code>semantic_score</code> can be computed.</td></tr>
+      <tr><td><code>semantic_weight</code></td><td><code>0.5</code></td><td>Multiplies <code>semantic_score</code>. This is the largest share of <code>composite</code>.</td></tr>
+      <tr><td><code>recency_weight</code></td><td><code>0.3</code></td><td>Multiplies <code>decay</code>. This is how much of <code>composite</code> comes from freshness.</td></tr>
+      <tr><td><code>importance_weight</code></td><td><code>0.2</code></td><td>Multiplies the <code>importance</code> stored with the sentence.</td></tr>
+      <tr><td><code>recency_half_life_days</code></td><td><code>30</code></td><td>The divisor in <code>decay = 0.5 ** (age_days / recency_half_life_days)</code>. At this many days, <code>decay</code> is <code>0.5</code>.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Four stores, side by side</h2>
+  <table>
+    <thead><tr><th>Store</th><th>What it holds on this desk</th><th>How long it lasts</th></tr></thead>
+    <tbody>
+      <tr><td>Task context</td><td>The full coverage opinion, because the brief lists <code>"context": ["coverage_opinion"]</code>.</td><td>That one run. The brief reads the opinion as text, in the order the tasks are written.</td></tr>
+      <tr><td>Crew memory</td><td>Short sentences taken from the answers, searched by meaning. The surveyor phone call lives here.</td><td>Across questions and across a restart, until <code>crewai reset-memories -m</code>.</td></tr>
+      <tr><td>SQLite</td><td>Policy rows and earlier-claims rows, opened by the tools.</td><td>Until you rebuild <code>suraksha_claims.db</code>. A reset of memory leaves these rows in place.</td></tr>
+      <tr><td>The chat</td><td>The bubbles on the page.</td><td>Until you switch claims or refresh. Stopping the chat clears the bubbles and leaves the LanceDB files.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="tip">
+    <div class="label label-amber">Looking at the store</div>
+    <ul>
+      <li>You do not need to open the files to finish the exercise.</li>
+      <li>With the chat stopped, <code>crewai memory</code> from <code>suraksha_claims_desk</code> opens a browser for the saved sentences.</li>
+      <li>The paths in that view, such as <code>/crew/suraksha-coverage-desk/agent/...</code>, are scopes. They are not folders on the disk.</li>
+      <li><code>crewai reset-memories -m</code> clears this memory. The policy database stays.</li>
+    </ul>
+  </div>
+</main>
+</body>
+</html>
+
